@@ -80,7 +80,7 @@ sub request {
     }
 
     if ($code == 200) {
-        if ($content_type eq 'application/json' and length($body) > 0) {
+        if ($content_type =~ m!^application/json! and length($body) > 0) {
             return JSON::XS::decode_json($body);
         }
         return 1;

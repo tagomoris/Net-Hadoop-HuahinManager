@@ -9,7 +9,7 @@ use JSON::XS qw//;
 
 use Furl;
 
-our $VERSION = "0.1";
+our $VERSION = "0.01";
 
 sub new {
     my ($this, %opts) = @_;
@@ -91,3 +91,94 @@ sub request {
 }
 
 1;
+
+__END__
+
+=head1 NAME
+
+Net::Hadoop::HuahinManager - Client library for Huahin Manager.
+
+=head1 SYNOPSIS
+
+  use Net::Hadoop::HuahinManager;
+  my $client = Net::Hadoop::HuahinManager->new(server => 'manager.local');
+
+  my $all_jobs = $client->list();
+
+  my $failed_jobs = $client->list('failed');
+
+  my $status = $client->status($jobid);
+  my $detail = $client->detail($jobid);
+
+  $client->kill($jobid)
+    or die "failed to kill jobid: $jobid";
+
+=head1 DESCRIPTION
+
+This module is for systems with Huahin Manager, REST API proxy tool for Hadoop JobTracker.
+
+About Huahin Manager: http://huahin.github.com/huahin-manager/
+
+At just now, Net::Hadoop::HuahinManager supports only list/status/kill (not register).
+
+=head1 METHODS
+
+Net::Hadoop::HuahinManager class method and instance methods.
+
+=head2 CLASS METHODS
+
+=head3 C<< Net::Hadoop::HuahinManager->new( %args ) :Net::Hadoop::HuahinManager >>
+
+Creates and returns a new client instance with I<%args>, might be:
+
+=over
+
+=item server :Str = "manager.local"
+
+=item port :Int = 9010 (default)
+
+=item useragent :Str
+
+=item timeout :Int = 10
+
+=back
+
+=head2 INSTANCE METHODS
+
+=head3 C<< $client->list( [ $op ] ) :ArrayRef >>
+
+Get list of jobs and returns these as arrayref.
+
+=over
+
+=item op :String (optional, one of 'all' (default), 'failed', 'killed', 'prep', 'running' and 'succeeded')
+
+=back
+
+=head3 C<< $client->status( $jobid ) :HashRef >>
+
+Gets job status specified by I<$jobid> string, and returns it.
+
+=head3 C<< $client->detail( $jobid ) :HashRef >>
+
+Gets job detail status specified by I<$jobid> string, and returns it.
+
+=head3 C<< $client->kill( $jobid ) :Bool >>
+
+Kill the job of I<$jobid>.
+
+=head3 C<< $client->kill_by_name( $jobname ) :Bool >>
+
+Kill the job specified by job name I<$jobname>.
+
+=head1 AUTHOR
+
+TAGOMORI Satoshi E<lt>tagomoris {at} gmail.comE<gt>
+
+=head1 LICENSE
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+=cut
+

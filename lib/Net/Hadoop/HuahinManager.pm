@@ -9,7 +9,7 @@ use JSON::XS qw//;
 
 use Furl;
 
-our $VERSION = "0.01";
+our $VERSION = "0.02";
 
 sub new {
     my ($this, %opts) = @_;

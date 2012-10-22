@@ -1,4 +1,7 @@
 Revision history for Perl module Net::Hadoop::HuahinManager
 
+0.02  Mon Oct 22 12:32:24 JST 2012
+   - update bundled Module::Install to 1.06
+
 0.01  Tue Jun 26 13:31:16 JST 2012
    - original version
